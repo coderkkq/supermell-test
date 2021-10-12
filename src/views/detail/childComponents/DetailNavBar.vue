@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav-bar>
-      <div slot="left" class="back" @click="backClick">
+      <div slot="left" class="back">
         <img src="~assets/img/common/back.svg" alt="">
       </div>
       <div slot="center" class="title">
@@ -10,7 +10,8 @@
              :class="{active: index === currentIndex}"
              @click="titleClick(index)"
              :key="index">
-          {{item}}</div>
+          {{item}}
+        </div>
       </div>
     </nav-bar>
   </div>
@@ -19,7 +20,7 @@
 <script>
 import NavBar from 'components/common/navbar/NavBar'
 export default {
-  name: DetailNavBar,
+  name: 'DetailNavBar',
   components: {
     NavBar
   },
