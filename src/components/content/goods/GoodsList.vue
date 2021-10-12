@@ -1,6 +1,6 @@
 <template>
   <div class="goods-list">
-    <div class="goods-list-item" v-for="item in goods">
+    <div class="goods-list-item" v-for="(item, index) in goods" :key="index" @click="itemClick">
       <img :src="item.show.img" alt="">
       <div class="good-info">
         <p>{{item.title}}</p>
@@ -21,6 +21,11 @@ export default {
         return []
       }
     },
+  },
+  methods: {
+    itemClick() {
+      this.$router.push('/detail/' + this.goods.iid)
+    }
   }
 }
 </script>
