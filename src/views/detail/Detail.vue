@@ -5,7 +5,10 @@
     <detail-base-info :goods="goods"/>
     <detail-shop-info/>
     <detail-goods-info :detail-info="detailInfo"/>
+    <detail-param-info :param-info="paramInfo"/>
+    <detail-comment-info :comment-info="commentInfo"/>
 
+     <detail-bottom-bar />
     <ul>
       <li>列表1</li>
       <li>列表2</li>
@@ -47,9 +50,12 @@ import DetailSwiper from "./childComponents/DetailSwiper"
 import DetailBaseInfo from "./childComponents/DetailBaseInfo"
 import DetailShopInfo from "./childComponents/DetailShopInfo"
 import DetailGoodsInfo from "./childComponents/DetailGoodsInfo"
+import DetailParamInfo from "./childComponents/DetailParamInfo"
+import DetailCommentInfo from "./childComponents/DetailCommentInfo"
+import DetailBottomBar from "./childComponents/DetailBottomBar"
 
 // 请求方法
-import {getDetail, Goods, Shop} from "network/detail"
+import {getDetail, Goods, Shop, GoodsParam, getRecommend} from "network/detail"
 
 export default {
  name: "Detail",
@@ -58,7 +64,10 @@ export default {
    DetailSwiper,
    DetailBaseInfo,
    DetailShopInfo,
-   DetailGoodsInfo
+   DetailGoodsInfo,
+   DetailParamInfo,
+   DetailCommentInfo,
+   DetailBottomBar
  },
  data() {
    return {
@@ -66,7 +75,9 @@ export default {
      topImages: [],
      goods: {},
      shop: {},
-     detailInfo: {}
+     detailInfo: {},
+     paramInfo: {},
+     commentInfo: {}
    }
  },
  created() {
@@ -77,6 +88,11 @@ export default {
      this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.services)
      this.shop = new Shop(data.shopInfo)
      this.detailInfo = data.detailInfo
+     this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule)
+
+       if (data.rate.cRate !== 0) {
+        this.commentInfo = data.rate.list[0]
+      }
    }) 
  }
 
